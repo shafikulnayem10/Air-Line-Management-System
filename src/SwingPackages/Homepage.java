@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.Border;
 
 public class Homepage extends JFrame implements ActionListener{
     private final ImageIcon bdFlag;
@@ -37,6 +38,8 @@ public class Homepage extends JFrame implements ActionListener{
         headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.WHITE);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        Border border= BorderFactory.createLineBorder(Color.BLUE,3);
+                
 
         // Us-BanglaLogo in Left side 
         logoIcon = new ImageIcon(getClass().getResource("USBANGLAICON.png")); 
@@ -69,6 +72,7 @@ public class Homepage extends JFrame implements ActionListener{
 
         // Adding the message panel in the center of the header
         headerPanel.add(messagePanel, BorderLayout.CENTER);
+        headerPanel.setBorder(border);
 
         // Add the header panel to the frame
         this.add(headerPanel, BorderLayout.NORTH);
@@ -102,6 +106,7 @@ public class Homepage extends JFrame implements ActionListener{
         bookTicketButton.setFocusPainted(false);
         bookTicketButton.setOpaque(false);
         bookTicketButton.addActionListener(this);
+        bookTicketButton.setBorder(border);
         
 
          // Creating the toggle button for "Cancel Ticket"
