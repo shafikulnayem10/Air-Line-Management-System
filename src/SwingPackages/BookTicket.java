@@ -5,106 +5,115 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BookTicket extends JFrame implements ActionListener{
+public class BookTicket extends JFrame implements ActionListener {
+    private JTextField nameField, addressField;
+    private JComboBox<String> fromComboBox, toComboBox, tripTypeComboBox;
+    private JButton bookButton;
 
-     JLabel headerLabel;
-     JLabel fromLabel;
-     JLabel toLabel;
-     JLabel tripTypeLabel;
-     JLabel passengersLabel;
-     JLabel adressLabel ;
-     JLabel nameLabel;
-     JButton bookButton;
-    JTextField nameField,addressField;
-    
     public BookTicket() {
         // Frame setup
         setTitle("Book Ticket");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 400);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
-        setLocation(350, 150);
 
-        // Header Panel
-        headerLabel = new JLabel("Book Your Ticket", JLabel.CENTER);
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        headerLabel.setForeground(Color.BLUE);
-        add(headerLabel, BorderLayout.NORTH);
+        // Icon Panel with Resized Icon
+        JPanel iconPanel = new JPanel(new BorderLayout());
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("bookflighticon.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(scaledImage);
+        JLabel iconLabel = new JLabel(resizedIcon, JLabel.CENTER);
+        iconPanel.add(iconLabel, BorderLayout.CENTER);
+        add(iconPanel, BorderLayout.WEST);
 
-        // Center Panel
-        JPanel centerPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        // Form Panel
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
 
-        // From ComboBox
-        fromLabel = new JLabel("From:");
-        fromLabel.setForeground(Color.RED);
-        centerPanel.add(fromLabel);
-        JComboBox<String> fromComboBox = new JComboBox<>(new String[]{"Dhaka", "Chittagong", "Sylhet"});
-        fromComboBox.setBackground(Color.LIGHT_GRAY);
-        fromComboBox.setForeground(Color.BLUE);
-        centerPanel.add(fromComboBox);
+        // Label Styling
+        Font labelFont = new Font("Arial", Font.BOLD, 14);
+        Color labelColor = Color.GREEN;
 
-        // To ComboBox
-        toLabel = new JLabel("To:");
+        // FROM ComboBox
+        JLabel fromLabel = new JLabel("From:");
+        fromLabel.setFont(labelFont);
+        fromLabel.setForeground(Color.GREEN);
+        formPanel.add(fromLabel);
+        fromComboBox = new JComboBox<>(new String[]{"Dhaka", "Chittagong", "Sylhet"});
+        fromComboBox.setBackground(Color.cyan);
+        formPanel.add(fromComboBox);
+
+        // TO ComboBox
+        JLabel toLabel = new JLabel("To:");
+        toLabel.setFont(labelFont);
         toLabel.setForeground(Color.GREEN);
-        centerPanel.add(toLabel);
-        JComboBox<String> toComboBox = new JComboBox<>(new String[]{"Chittagong", "Sylhet", "Dhaka"});
-        toComboBox.setBackground(Color.LIGHT_GRAY);
-        toComboBox.setForeground(Color.BLUE);
-        centerPanel.add(toComboBox);
+        formPanel.add(toLabel);
+        toComboBox = new JComboBox<>(new String[]{"Chittagong", "Sylhet", "Dhaka"});
+        toComboBox.setBackground(Color.ORANGE);
+        formPanel.add(toComboBox);
 
-        // Trip Type
-        tripTypeLabel = new JLabel("Trip Type:");
-        tripTypeLabel.setForeground(Color.MAGENTA);
-        centerPanel.add(tripTypeLabel);
-        JComboBox<String> tripTypeComboBox = new JComboBox<>(new String[]{"One Way", "Round Trip"});
-        tripTypeComboBox.setBackground(Color.LIGHT_GRAY);
-        tripTypeComboBox.setForeground(Color.BLUE);
-        centerPanel.add(tripTypeComboBox);
+        // Trip Type ComboBox
+        JLabel tripTypeLabel = new JLabel("Trip Type:");
+        tripTypeLabel.setFont(labelFont);
+        tripTypeLabel.setForeground(Color.GREEN);
+        formPanel.add(tripTypeLabel);
+        tripTypeComboBox = new JComboBox<>(new String[]{"One Way", "Round Trip"});
+        tripTypeComboBox.setBackground(Color.cyan);
+        formPanel.add(tripTypeComboBox);
 
-        // Departing Date
-        nameLabel = new JLabel("Name:");
-        nameLabel.setForeground(Color.ORANGE);
-        centerPanel.add(nameLabel);
+        // Name Field
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setFont(labelFont);
+        nameLabel.setForeground(Color.GREEN);
+        formPanel.add(nameLabel);
         nameField = new JTextField();
-        centerPanel.add(nameField);
-        //nameField.addActionListener(this); 
+        formPanel.add(nameField);
+        nameField.setBackground(Color.MAGENTA);
 
-        // Returning Date
-        adressLabel = new JLabel("Address:");
-        adressLabel.setForeground(Color.CYAN);
-        centerPanel.add(adressLabel);
+        // Address Field
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setForeground(Color.GREEN);
+        addressLabel.setFont(labelFont);
+        
+        formPanel.add(addressLabel);
         addressField = new JTextField();
-        centerPanel.add(addressField);
-        
+        addressField.setBackground(Color.orange);
+        formPanel.add(addressField);
 
-        // Passenger Count
-        passengersLabel = new JLabel("Passengers:");
-        passengersLabel.setForeground(Color.PINK);
-        centerPanel.add(passengersLabel);
-        JComboBox<String> passengerComboBox = new JComboBox<>(new String[]{"1", "2", "3", "4"});
-        passengerComboBox.setBackground(Color.LIGHT_GRAY);
-        passengerComboBox.setForeground(Color.BLUE);
-        centerPanel.add(passengerComboBox);
-
-        add(centerPanel, BorderLayout.CENTER);
-
-        // Search Button
+        // Book Button 
         bookButton = new JButton("Book Flight");
+        bookButton.setFont(new Font("Arial", Font.BOLD, 16));
+        bookButton.setBackground(Color.BLUE);
+        bookButton.setForeground(Color.WHITE);
+        bookButton.setFocusPainted(false);
+        bookButton.setBorder(BorderFactory.createRaisedBevelBorder());
         bookButton.addActionListener(this);
-        add(bookButton, BorderLayout.SOUTH);
-        
-        setVisible(true);
-    }
+        formPanel.add(new JLabel()); // Empty space for alignment
+        formPanel.add(bookButton);
 
-    public static void main(String[] args) {
-         BookTicket bookTicket = new BookTicket();
+        add(formPanel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "Your ticket is booked!", "Success", JOptionPane.INFORMATION_MESSAGE);
-         nameField.setText("");
-         addressField.setText("");
-        
+        if (e.getSource() == bookButton) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Your ticket is booked!\n" +
+                "From: " + fromComboBox.getSelectedItem() + "\n" +
+                "To: " + toComboBox.getSelectedItem() + "\n" +
+                "Trip Type: " + tripTypeComboBox.getSelectedItem(),
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            nameField.setText("");
+            addressField.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new BookTicket();
     }
 }

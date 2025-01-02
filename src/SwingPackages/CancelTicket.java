@@ -7,19 +7,17 @@ import java.awt.event.ActionListener;
 
 public class CancelTicket extends JFrame implements ActionListener {
 
-    private JTextField nameField;
-    private JTextField flightCodeField;
-    private JTextField pnrField;
+    private JTextField nameField, flightCodeField, pnrField;
 
     public CancelTicket() {
         // Frame setup
         setTitle("Cancel Ticket");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 300);
-        setLayout(new BorderLayout(10, 10));
-        setLocation(350, 150);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        // Header Panel
+        // Header
         JLabel headerLabel = new JLabel("Cancel Your Ticket", JLabel.CENTER);
         headerLabel.setFont(new Font("Arial", Font.BOLD, 20));
         headerLabel.setForeground(Color.RED);
@@ -27,29 +25,33 @@ public class CancelTicket extends JFrame implements ActionListener {
 
         // Center Panel
         JPanel centerPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-
-        // Name Field
         JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setForeground(Color.BLUE);
-        centerPanel.add(nameLabel);
+        nameLabel.setForeground(Color.GREEN);
         nameField = new JTextField();
-        centerPanel.add(nameField);
-
-        // Flight Code Field
+        nameField.setBackground(Color.ORANGE);
         JLabel flightCodeLabel = new JLabel("Flight Code:");
-        flightCodeLabel.setForeground(Color.BLUE);
-        centerPanel.add(flightCodeLabel);
+        flightCodeLabel.setForeground(Color.GREEN);
         flightCodeField = new JTextField();
-        centerPanel.add(flightCodeField);
-
-        // PNR Field
+        flightCodeField.setBackground(Color.red);
         JLabel pnrLabel = new JLabel("PNR Number:");
-        pnrLabel.setForeground(Color.BLUE);
-        centerPanel.add(pnrLabel);
+        pnrLabel.setForeground(Color.GREEN);
         pnrField = new JTextField();
+        pnrField.setBackground(Color.CYAN);
+        centerPanel.add(nameLabel);
+        centerPanel.add(nameField);
+        centerPanel.add(flightCodeLabel);
+        centerPanel.add(flightCodeField);
+        centerPanel.add(pnrLabel);
         centerPanel.add(pnrField);
 
         add(centerPanel, BorderLayout.CENTER);
+
+        // Icon Panel
+        ImageIcon icon = new ImageIcon(getClass().getResource("cancelticketicon.png"));
+        JLabel iconLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
+        JPanel iconPanel = new JPanel();
+        iconPanel.add(iconLabel);
+        add(iconPanel, BorderLayout.EAST);
 
         // Cancel Button
         JButton cancelButton = new JButton("Cancel Ticket");
@@ -59,16 +61,15 @@ public class CancelTicket extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        CancelTicket cancelTicket = new CancelTicket();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "Your ticket has been canceled.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            nameField.setText("");
-            flightCodeField.setText("");
-            pnrField.setText("");
+        JOptionPane.showMessageDialog(this, "Your ticket has been canceled!", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+        nameField.setText("");
+        flightCodeField.setText("");
+        pnrField.setText("");
+    }
+
+    public static void main(String[] args) {
+        new CancelTicket();
     }
 }
-
